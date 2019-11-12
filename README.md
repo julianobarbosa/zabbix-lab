@@ -59,6 +59,7 @@
     ```sh
     $ docker-compose up -d
     ```
+  - Note that docker not gonna let you use 'localhost' as configuring the Grafana datasources for Zabbix or PostgreSQL and also for PGAdmin to PostgreSQL. I'm using the hostname option for each container, and when configuring this features you can use the name that's specified there.
 
 # About Zabbix
 
