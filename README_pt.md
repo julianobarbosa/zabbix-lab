@@ -52,11 +52,11 @@
     | PORT_WEBMAIL           | 8025
     | ZABBIX_VERSION         | 4.0
     | POSTGRES_VERSION       | 11
-
   - Iniciar o proejeto com o docker-compose
     ```sh
     $ docker-compose up -d
     ```
+  - Observe que o docker não permitirá que você use 'localhost' para configurar os datasources do Grafana para Zabbix ou PostgreSQL e também no PGAdmin para PostgreSQL. Estou usando a opção de hostname para cada contêiner então, ao configurar esses recursos, você pode usar o nome especificado lá.
 
 # Sobre o Zabbix
 
