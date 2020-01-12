@@ -25,7 +25,7 @@
     - Versão em pt_BR: Olhe o arquivo REQUIREMENTS_pt.md
   - Copy the project and zapix dependency to your station:
     ```sh
-    $ git clone --recurse-submodules https://git.serpro/monitoracao/zabbix-lab.git
+    $ git clone --recurse-submodules https://github.com/isaqueprofeta/zabbix-lab.git
     ```
   - **If necessary** edit the version options / ip / port variables:
     ```sh
