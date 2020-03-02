@@ -8,13 +8,6 @@ volumes:
   pgadmin_data:
     driver: local
 
-networks:
-  app_net:
-    ipam:
-      driver: default
-      config:
-        - subnet: ${IP_REDE}
-
 services:
   zabbix-server:
     container_name: zabbix-server
@@ -27,15 +20,10 @@ services:
       - POSTGRES_DB=zabbix
       - POSTGRES_USER=zabbix
       - POSTGRES_PASSWORD=zabbix
-    ports:
-      - ${PORT_ZBX_SERVER}:10051
     volumes:
       - ./zbx_env/usr/lib/zabbix/externalscripts:/usr/lib/zabbix/externalscripts:ro
     depends_on:
       - postgresql
-    networks:
-      app_net:
-        ipv4_address: ${IP_ZBX_SERVER}
 
   zabbix-frontend:
     container_name: zabbix-frontend
@@ -50,9 +38,6 @@ services:
       - POSTGRES_PASSWORD=zabbix
       - PHP_TZ=America/Sao_Paulo
       - ZBX_SERVER_NAME=zabbix-server
-    ports:
-      - ${PORT_ZBX_FRONTEND}:80
-      - ${PORT_ZBX_FRONTEND_SSL}:443
     volumes:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
@@ -60,9 +45,6 @@ services:
     depends_on:
       - postgresql
       - zabbix-server
-    networks:
-      app_net:
-        ipv4_address: ${IP_ZBX_FRONTEND}
 
   postgresql:
     container_name: postgresql
@@ -73,15 +55,10 @@ services:
       - POSTGRES_DB=zabbix
       - POSTGRES_USER=zabbix
       - POSTGRES_PASSWORD=zabbix
-    ports:
-      - ${PORT_PGSQL}:5432
     volumes:
       - db_data:/var/lib/postgresql/data
     command: ["postgres", "-c", "max_connections=1000"]
-    networks:
-      app_net:
-        ipv4_address: ${IP_ZBX_PGSQL}
-  
+
   zabbix-agent:
     container_name: zabbix-agent
     hostname: zabbix-agent
@@ -92,17 +69,12 @@ services:
       - ZBX_DEBUGLEVEL=4
       - ZBX_ENABLEREMOTECOMMANDS=1
       - ZBX_SERVER_HOST=zabbix-server
-    ports:
-      - ${PORT_ZBX_AGENT}:10050
     volumes:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
       - ./zbx_env/etc/zabbix/zabbix_agentd.d:/etc/zabbix/zabbix_agentd.d:ro
     depends_on:
       - zabbix-server
-    networks:
-      app_net:
-        ipv4_address: ${IP_ZBX_AGENT}
 
   grafana:
     container_name: grafana
@@ -111,13 +83,8 @@ services:
     image: monitoringartist/grafana-xxl:latest
     volumes:
       - grafana_data:/var/lib/grafana
-    ports:
-      - ${PORT_GRAFANA}:3000
     depends_on:
       - zabbix-frontend
-    networks:
-      app_net:
-        ipv4_address: ${IP_GRAFANA}
 
   zapix:
     container_name: zapix
@@ -125,28 +92,18 @@ services:
     restart: unless-stopped
     build:
       context: ./zapix
-    ports:
-      - ${PORT_ZAPIX}:80
     depends_on:
       - zabbix-frontend
-    networks:
-      app_net:
-        ipv4_address: ${IP_ZAPIX}
 
   pgadmin:
     container_name: pgadmin
     hostname: pgadmin
     restart: unless-stopped
     image: thajeztah/pgadmin4
-    ports:
-      - ${PORT_PGADMIN}:5050
     volumes:
       - pgadmin_data:/pgadmin
     depends_on:
       - postgresql
-    networks:
-      app_net:
-        ipv4_address: ${IP_PGADMIN}
 
   mailhog:
     container_name: mailhog
@@ -155,9 +112,3 @@ services:
     image: mailhog/mailhog:v1.0.0
     environment:
       - MH_HOSTNAME=mailhog
-    ports:
-      - ${PORT_SMTP}:1025
-      - ${PORT_WEBMAIL}:8025
-    networks:
-      app_net:
-        ipv4_address: ${IP_MAIL}

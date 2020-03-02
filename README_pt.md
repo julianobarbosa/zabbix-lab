@@ -1,23 +1,22 @@
 # Laboratório simples em docker para o Zabbix com PostgreSQL, Grafana e Zapix(Testes em API)
 
-## Conteúdo 
+## Conteúdo
   - Zabbix:
-    - Zabbix Server em: localhost:10051
-    - Zabbix Agent em: localhost:10050
-    - Zabbix Frontend em: http://localhost
+    - Zabbix Server zabbix-server:10051
+    - Zabbix Agent em: zabbix-agent:10050
+    - Zabbix Frontend em: http://zabbix-frontend
   - Banco de dados:
-    - Postgresql em : localhost:5432
-    - PGAdmin em : http://localhost:5050
+    - Postgresql em : postgresql:5432
+    - PGAdmin em : http://pgadmin:5050
   - Ferramentas de apoio:
-    - Zapix em: http://localhost:8080
-    - Grafana em: http://localhost:3000
+    - Zapix em: http://zapix
+    - Grafana em: http://grafana:3000
     - Mailhog:
-      - WEB Client: http://localhost:8025
+      - WEB Client: http://mailhog:8025
       - SMTP Servidor: mailhog
       - SMTP Server Port: 1025
       - SMTP Helo: mailhog
       - SMTP Email: admin@mailhog
-  (As portas de rede padrão podem ser alteradas no arquivo '.env')
 
 ## Como usar:
   - [Instalar os pré-requisitos](./REQUIREMENTS.md)
@@ -25,38 +24,31 @@
     ```sh
     $ git clone --recurse-submodules https://git.serpro/monitoracao/zabbix-lab.git
     ```
-  - **Se necessário** editar as variaveis de opções de versão/ip/porta:
+  - Em caso de esquecimento do parâmetro "--recurse-submodules" acima, ative o zapix usando os comandos abaixo:
+    ```sh
+    $ git submodule init
+    $ git submodule update
+    ```  
+  - **Se necessário** editar as variaveis de opções de versão:
     ```sh
     $ vim .env
     ```
     | Environment            | Padrão
     | -------------------    | -----------
-    | IP_REDE                | 172.25.0.0/24
-    | IP_ZBX_SERVER          | 172.25.0.10
-    | IP_ZBX_FRONTEND        | 172.25.0.12
-    | IP_ZBX_PGSQL           | 172.25.0.11
-    | IP_ZBX_AGENT           | 172.25.0.13
-    | IP_GRAFANA             | 172.25.0.14
-    | IP_ZAPIX               | 172.25.0.15
-    | IP_PGADMIN             | 172.25.0.16
-    | IP_MAIL                | 172.25.0.17
-    | PORT_ZBX_SERVER        | 10050
-    | PORT_ZBX_FRONTEND      | 80
-    | PORT_ZBX_FRONTEND_SSL  | 443
-    | PORT_PGSQL             | 5432
-    | PORT_ZBX_AGENT         | 10051
-    | PORT_GRAFANA           | 3000
-    | PORT_ZAPIX             | 8080
-    | PORT_PGADMIN           | 5050
-    | PORT_SMTP              | 1025
-    | PORT_WEBMAIL           | 8025
     | ZABBIX_VERSION         | 4.0
     | POSTGRES_VERSION       | 11
-  - Iniciar o proejeto com o docker-compose
+  - Iniciar o gestor do hosts para facilitar acesso:
+    ```sh
+    $ docker run -d \
+        -v /var/run/docker.sock:/tmp/docker.sock \
+        -v /etc/hosts:/tmp/hosts \
+        dvdarias/docker-hoster
+    ```
+  - Iniciar o projeto com o docker-compose
     ```sh
     $ docker-compose up -d
     ```
-  - Observe que o docker não permitirá que você use 'localhost' para configurar os datasources do Grafana para Zabbix ou PostgreSQL e também no PGAdmin para PostgreSQL. Estou usando a opção de hostname para cada contêiner então, ao configurar esses recursos, você pode usar o nome especificado lá.
+  - **Observe** que a estrutura em docker **não usa 'localhost'** para configurar os datasources do Grafana para Zabbix ou PostgreSQL e também no PGAdmin para PostgreSQL e no mailhog. Para configurar os mesmos, atentar-se para a opção de hostname para cada contêiner dentro da configuração do arquivo docker-compose.yml.
 
 # Sobre o Zabbix
 
