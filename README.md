@@ -2,7 +2,6 @@
 ## Versão em pt_BR: Olhe o arquivo README_pt.md
 
 ## Contents 
-  (I higgly recommend using [docker-hoster](https://github.com/dvddarias/docker-hoster) to ease the access)
   - Zabbix:
     - Zabbix Server at: zabbix-server:10051
     - Zabbix Agent at: zabbix-agent:10050
@@ -36,13 +35,19 @@
     ```sh
     $ vim .env
     ```
-    | Environment            | Padrão
+    | Environment            | Default
     | -------------------    | -----------
-    | ZABBIX_VERSION         | 4.0
+    | ZABBIX_VERSION         | 4.0-latest
+    | POSTGRES_VERSION       | 11
+  - Want to try **5.0 development?** Use below:
+    | Environment            | Default
+    | -------------------    | -----------
+    | ZABBIX_VERSION         | trunk
     | POSTGRES_VERSION       | 11
   - Start the docker hoster for easy access using local DNS:
     ```sh
     $ docker run -d \
+        --restart=always
         -v /var/run/docker.sock:/tmp/docker.sock \
         -v /etc/hosts:/tmp/hosts \
         dvdarias/docker-hoster
