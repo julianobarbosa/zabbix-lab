@@ -2,6 +2,7 @@
 ## Versão em pt_BR: Olhe o arquivo README_pt.md
 
 ## Contents 
+  (I higgly recommend using [docker-hoster](https://github.com/dvddarias/docker-hoster) to ease the access)
   - Zabbix:
     - Zabbix Server at: zabbix-server:10051
     - Zabbix Agent at: zabbix-agent:10050
