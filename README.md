@@ -35,13 +35,19 @@
     ```sh
     $ vim .env
     ```
-    | Environment            | Padrão
+    | Environment            | Default
     | -------------------    | -----------
-    | ZABBIX_VERSION         | 4.0
+    | ZABBIX_VERSION         | 4.0-latest
+    | POSTGRES_VERSION       | 11
+  - Want to try **5.0 development?** Use below:
+    | Environment            | Default
+    | -------------------    | -----------
+    | ZABBIX_VERSION         | trunk
     | POSTGRES_VERSION       | 11
   - Start the docker hoster for easy access using local DNS:
     ```sh
     $ docker run -d \
+        --restart=always
         -v /var/run/docker.sock:/tmp/docker.sock \
         -v /etc/hosts:/tmp/hosts \
         dvdarias/docker-hoster
