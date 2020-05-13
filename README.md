@@ -5,7 +5,7 @@
   - Zabbix:
     - Zabbix Server at: zabbix-server:10051
     - Zabbix Agent at: zabbix-agent:10050
-    - Zabbix Frontend at: http://zabbix-frontend
+    - Zabbix Frontend at: http://zabbix-frontend:8080
   - Database:
     - Postgresql at: postgresql:5432
     - PGAdmin at: http://pgadmin:5050
@@ -37,12 +37,7 @@
     ```
     | Environment            | Default
     | -------------------    | -----------
-    | ZABBIX_VERSION         | 4.0-latest
-    | POSTGRES_VERSION       | 11
-  - Want to try **5.0 development?** Use below:
-    | Environment            | Default
-    | -------------------    | -----------
-    | ZABBIX_VERSION         | trunk
+    | ZABBIX_VERSION         | 5.0-latest
     | POSTGRES_VERSION       | 11
   - Start the docker hoster for easy access using local DNS:
     ```sh
