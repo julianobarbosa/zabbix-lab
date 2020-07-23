@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 volumes:
   db_data:
@@ -80,7 +80,9 @@ services:
     container_name: grafana
     hostname: grafana
     restart: unless-stopped
-    image: monitoringartist/grafana-xxl:latest
+    image: grafana/grafana
+    environment:
+      - GF_INSTALL_PLUGINS=alexanderzobnin-zabbix-app
     volumes:
       - grafana_data:/var/lib/grafana
     depends_on:
@@ -108,7 +110,7 @@ services:
   mailhog:
     container_name: mailhog
     hostname: mailhog
-    restart: unless-stopped  
+    restart: unless-stopped
     image: mailhog/mailhog:v1.0.0
     environment:
       - MH_HOSTNAME=mailhog

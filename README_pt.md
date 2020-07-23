@@ -1,54 +1,56 @@
 # Laboratório simples em docker para o Zabbix com PostgreSQL, Grafana e Zapix(Testes em API)
 
 ## Conteúdo
-  - Zabbix:
-    - Zabbix Server zabbix-server:10051
-    - Zabbix Agent em: zabbix-agent:10050
-    - Zabbix Frontend em: http://zabbix-frontend
-  - Banco de dados:
-    - Postgresql em : postgresql:5432
-    - PGAdmin em : http://pgadmin:5050
-  - Ferramentas de apoio:
-    - Zapix em: http://zapix
-    - Grafana em: http://grafana:3000
-    - Mailhog:
-      - WEB Client: http://mailhog:8025
-      - SMTP Servidor: mailhog
-      - SMTP Server Port: 1025
-      - SMTP Helo: mailhog
-      - SMTP Email: admin@mailhog
+
+- Zabbix:
+  - Zabbix Server zabbix-server:10051
+  - Zabbix Agent em: zabbix-agent:10050
+  - Zabbix Frontend em: http://zabbix-frontend:8080
+- Banco de dados:
+  - Postgresql em : postgresql:5432
+  - PGAdmin em : http://pgadmin:5050
+- Ferramentas de apoio:
+  - Zapix em: http://zapix
+  - Grafana em: http://grafana:3000
+  - Mailhog:
+    - WEB Client: http://mailhog:8025
+    - SMTP Servidor: mailhog
+    - SMTP Server Port: 1025
+    - SMTP Helo: mailhog
+    - SMTP Email: admin@mailhog
 
 ## Como usar:
-  - [Instalar os pré-requisitos](./REQUIREMENTS.md)
-  - Copiar o projeto e a dependência do zapix para sua estação:
-    ```sh
-    $ git clone --recurse-submodules https://git.serpro/monitoracao/zabbix-lab.git
-    ```
-  - Em caso de esquecimento do parâmetro "--recurse-submodules" acima, ative o zapix usando os comandos abaixo:
-    ```sh
-    $ git submodule init
-    $ git submodule update
-    ```  
-  - **Se necessário** editar as variaveis de opções de versão:
-    ```sh
-    $ vim .env
-    ```
-    | Environment            | Padrão
-    | -------------------    | -----------
-    | ZABBIX_VERSION         | 4.0
-    | POSTGRES_VERSION       | 11
-  - Iniciar o gestor do hosts para facilitar acesso:
-    ```sh
-    $ docker run -d \
-        -v /var/run/docker.sock:/tmp/docker.sock \
-        -v /etc/hosts:/tmp/hosts \
-        dvdarias/docker-hoster
-    ```
-  - Iniciar o projeto com o docker-compose
-    ```sh
-    $ docker-compose up -d
-    ```
-  - **Observe** que a estrutura em docker **não usa 'localhost'** para configurar os datasources do Grafana para Zabbix ou PostgreSQL e também no PGAdmin para PostgreSQL e no mailhog. Para configurar os mesmos, atentar-se para a opção de hostname para cada contêiner dentro da configuração do arquivo docker-compose.yml.
+
+- [Instalar os pré-requisitos](./REQUIREMENTS.md)
+- Copiar o projeto e a dependência do zapix para sua estação:
+  ```sh
+  $ git clone --recurse-submodules https://git.serpro/monitoracao/zabbix-lab.git
+  ```
+- Em caso de esquecimento do parâmetro "--recurse-submodules" acima, ative o zapix usando os comandos abaixo:
+  ```sh
+  $ git submodule init
+  $ git submodule update
+  ```
+- **Se necessário** editar as variaveis de opções de versão:
+  ```sh
+  $ vim .env
+  ```
+  | Environment      | Padrão |
+  | ---------------- | ------ |
+  | ZABBIX_VERSION   | 4.0    |
+  | POSTGRES_VERSION | 11     |
+- Iniciar o gestor do hosts para facilitar acesso:
+  ```sh
+  $ docker run -d \
+      -v /var/run/docker.sock:/tmp/docker.sock \
+      -v /etc/hosts:/tmp/hosts \
+      dvdarias/docker-hoster
+  ```
+- Iniciar o projeto com o docker-compose
+  ```sh
+  $ docker-compose up -d
+  ```
+- **Observe** que a estrutura em docker **não usa 'localhost'** para configurar os datasources do Grafana para Zabbix ou PostgreSQL e também no PGAdmin para PostgreSQL e no mailhog. Para configurar os mesmos, atentar-se para a opção de hostname para cada contêiner dentro da configuração do arquivo docker-compose.yml.
 
 # Sobre o Zabbix
 
@@ -60,11 +62,11 @@ O Zabbix é uma solução de monitoramento distribuído de código aberto para g
 
 Ferramenta Online para testes e desenvolvimento usando pesquisas dentro da API Web do Zabbix - Projeto original em: [Github Zapix](https://github.com/monitoringartist/zapix) por [monitoringartist](https://monitoringartist.com/).
 
-# Sobre o Grafana-XXL
+# Sobre o Grafana
 
 ![Grafana](https://raw.githubusercontent.com/grafana/grafana/master/docs/logo-horizontal.png)
 
-Ferramenta para relatórios e análise de dados - Versão em container com todos os plugins já instalados em [Grafana-XXL](https://github.com/monitoringartist/grafana-xxl) por [monitoringartist](https://monitoringartist.com/).
+[Grafana](https://grafana.com) é uma ferramenta para relatórios e análise de dados - Versão em container já configurada para uso com o plugin do zabbix
 
 # Sobre o Mailhog
 
