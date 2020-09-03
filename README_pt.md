@@ -32,13 +32,22 @@
   $ git submodule update
   ```
 - **Se necessário** editar as variaveis de opções de versão:
+
   ```sh
   $ vim .env
   ```
+
   | Environment      | Padrão |
   | ---------------- | ------ |
   | ZABBIX_VERSION   | 4.0    |
   | POSTGRES_VERSION | 11     |
+
+- Quer tentar usar a versão em desenvolvimento?
+  | Environment | Default |
+  | ---------------- | ---------- |
+  | ZABBIX_VERSION | trunk |
+  | POSTGRES_VERSION | 11 |
+
 - Iniciar o gestor do hosts para facilitar acesso:
   ```sh
   $ docker run -d \

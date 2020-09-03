@@ -35,13 +35,22 @@ Versão em pt_BR: Olhe o arquivo README_pt.md
   $ git submodule update
   ```
 - **If necessary** edit the version options:
+
   ```sh
   $ vim .env
   ```
+
   | Environment      | Default    |
   | ---------------- | ---------- |
   | ZABBIX_VERSION   | 5.0-latest |
   | POSTGRES_VERSION | 11         |
+
+- Want to try development versions?
+  | Environment | Default |
+  | ---------------- | ---------- |
+  | ZABBIX_VERSION | trunk |
+  | POSTGRES_VERSION | 11 |
+
 - Start the docker hoster for easy access using local DNS:
   ```sh
   $ docker run -d \
