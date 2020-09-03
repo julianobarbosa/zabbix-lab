@@ -1,4 +1,4 @@
-## Pre-requisitos
+## Requirements
 
 ### 1) docker-ce
 
