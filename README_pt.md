@@ -50,7 +50,8 @@
   ```sh
   $ docker-compose up -d
   ```
-- **Observe** que a estrutura em docker **não usa 'localhost'** para configurar os datasources do Grafana para Zabbix ou PostgreSQL e também no PGAdmin para PostgreSQL e no mailhog. Para configurar os mesmos, atentar-se para a opção de hostname para cada contêiner dentro da configuração do arquivo docker-compose.yml.
+- O Grafana já vem pré-configurado com o plugin e datasources para o Zabbix e para o banco postgres do Zabbix
+- **Observe** que a estrutura em docker **não usa 'localhost'** então não use esse hostname 'localhost' para configurar o PGAdmin para PostgreSQL e no mailhog. Para configurar os mesmos, atentar-se para a opção de hostname para cada contêiner dentro da configuração do arquivo docker-compose.yml.
 
 # Sobre o Zabbix
 

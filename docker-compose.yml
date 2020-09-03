@@ -88,6 +88,7 @@ services:
       - GF_LOG_LEVEL=debug
     volumes:
       - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
     depends_on:
       - zabbix-frontend
 
