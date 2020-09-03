@@ -69,6 +69,8 @@ Ferramenta Online para testes e desenvolvimento usando pesquisas dentro da API W
 
 [Grafana](https://grafana.com) é uma ferramenta para relatórios e análise de dados - Versão em container já configurada para uso com o plugin do zabbix
 
+- O Grafana já vem pré-configurado com o plugin e datasources para o Zabbix e para o banco postgres do Zabbix
+
 # Sobre o Mailhog
 
 ![MailHog](https://raw.githubusercontent.com/mailhog/MailHog-UI/master/assets/images/hog.png)
