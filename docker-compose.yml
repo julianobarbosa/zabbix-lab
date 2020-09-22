@@ -21,7 +21,7 @@ services:
       - POSTGRES_USER=zabbix
       - POSTGRES_PASSWORD=zabbix
     volumes:
-      - ./zbx_env/usr/lib/zabbix/externalscripts:/usr/lib/zabbix/externalscripts:ro
+      - ./zabbix/usr/lib/zabbix/externalscripts:/usr/lib/zabbix/externalscripts:ro
     depends_on:
       - postgresql
 
@@ -41,7 +41,7 @@ services:
     volumes:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
-      - ./zbx_env/etc/ssl/apache2:/etc/ssl/apache2:ro
+      - ./zabbix/etc/ssl/apache2:/etc/ssl/apache2:ro
     depends_on:
       - postgresql
       - zabbix-server
@@ -72,8 +72,8 @@ services:
     volumes:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
-      - ./zbx_env/etc/zabbix/zabbix_agentd.d:/etc/zabbix/zabbix_agentd.d:ro
-      - ./zbx_env/frontend_hacks:/usr/share/zabbix/local/
+      - ./zabbix/etc/zabbix/zabbix_agentd.d:/etc/zabbix/zabbix_agentd.d:ro
+      - ./zabbix/frontend_hacks:/usr/share/zabbix/local/
     depends_on:
       - zabbix-server
 
