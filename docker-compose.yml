@@ -10,7 +10,6 @@ volumes:
 
 services:
   zabbix-server:
-    container_name: zabbix-server
     hostname: zabbix-server
     restart: unless-stopped
     image: zabbix/zabbix-server-pgsql:alpine-${ZABBIX_VERSION}
@@ -26,7 +25,6 @@ services:
       - postgresql
 
   zabbix-frontend:
-    container_name: zabbix-frontend
     hostname: zabbix-frontend
     restart: unless-stopped
     image: zabbix/zabbix-web-apache-pgsql:alpine-${ZABBIX_VERSION}
@@ -47,7 +45,6 @@ services:
       - zabbix-server
 
   postgresql:
-    container_name: postgresql
     hostname: postgresql
     restart: unless-stopped
     image: postgres:${POSTGRES_VERSION}-alpine
@@ -60,7 +57,6 @@ services:
     command: ["postgres", "-c", "max_connections=1000"]
 
   zabbix-agent:
-    container_name: zabbix-agent
     hostname: zabbix-agent
     restart: unless-stopped
     image: zabbix/zabbix-agent:alpine-${ZABBIX_VERSION}
@@ -78,7 +74,6 @@ services:
       - zabbix-server
 
   grafana:
-    container_name: grafana
     hostname: grafana
     restart: unless-stopped
     image: grafana/grafana
@@ -103,7 +98,6 @@ services:
       - zabbix-frontend
 
   zapix:
-    container_name: zapix
     hostname: zapix
     restart: unless-stopped
     build:
@@ -112,7 +106,6 @@ services:
       - zabbix-frontend
 
   pgadmin:
-    container_name: pgadmin
     hostname: pgadmin
     restart: unless-stopped
     image: thajeztah/pgadmin4
@@ -122,7 +115,6 @@ services:
       - postgresql
 
   mailhog:
-    container_name: mailhog
     hostname: mailhog
     restart: unless-stopped
     image: mailhog/mailhog:v1.0.0
