@@ -129,3 +129,31 @@ services:
       - ./zabbix/provisioning.py:/tmp/provisioning.py:ro
     depends_on:
       - zabbix-frontend
+
+  # drawio:
+  #   image: jgraph/drawio
+  #   hostname: drawio
+  #   restart: unless-stopped
+  #   environment:
+  #     PUBLIC_DNS: drawio
+  #     ORGANISATION_UNIT: zabbixlab
+  #     ORGANISATION: zabbixlab
+  #     CITY: zabbixlab
+  #     STATE: zabbixlab
+  #     COUNTRY_CODE: BR
+
+  # gitlab:
+  #   image: gitlab/gitlab-ce:latest
+  #   restart: unless-stopped
+  #   hostname: gitlab
+  #   environment:
+  #     GITLAB_OMNIBUS_CONFIG: |
+  #       external_url 'http://gitlab.example.com:8929'
+  #       gitlab_rails['gitlab_shell_ssh_port'] = 2224
+  #   ports:
+  #     - "8929:8929"
+  #     - "2224:22"
+  #   volumes:
+  #     - "$GITLAB_HOME/config:/etc/gitlab"
+  #     - "$GITLAB_HOME/logs:/var/log/gitlab"
+  #     - "$GITLAB_HOME/data:/var/opt/gitlab"

@@ -29,4 +29,12 @@ datasources:
     url: postgresql:5432
     database: zabbix
     user: zabbix
-    password: zabbix
+    secureJsonData:
+      password: "zabbix"
+    jsonData:
+      sslmode: "disable"
+      maxOpenConns: 200
+      maxIdleConns: 10
+      connMaxLifetime: 14400
+      postgresVersion: 1200
+      timescaledb: false
