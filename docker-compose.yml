@@ -120,3 +120,12 @@ services:
     image: mailhog/mailhog:v1.0.0
     environment:
       - MH_HOSTNAME=mailhog
+
+  zabbix-provisioning:
+    hostname: zabbix-provisioning
+    image: python:3.8.5-alpine3.12
+    command: ["python", "/tmp/provisioning.py"]
+    volumes:
+      - ./zabbix/provisioning.py:/tmp/provisioning.py:ro
+    depends_on:
+      - zabbix-frontend

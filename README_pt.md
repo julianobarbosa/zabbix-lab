@@ -12,12 +12,18 @@
 - Ferramentas de apoio:
   - Zapix em: http://zapix
   - Grafana em: http://grafana:3000
-  - Mailhog:
-    - WEB Client: http://mailhog:8025
-    - SMTP Servidor: mailhog
-    - SMTP Server Port: 1025
-    - SMTP Helo: mailhog
-    - SMTP Email: admin@mailhog
+  - Mailhog: http://mailhog:8025
+- Provisionamento / Pré-configurações:
+  - Grafana já está provisionado com :
+    - Instalados o plugin e datasources para Zabbix
+    - Configurado o Datasource do Zabbix para o Zabbix
+    - Configurado o Datasource PostgreSQL para o banco de dados do Zabbix
+    - Notification Channel usando e-mail e MailHog
+  - Zabbix já está provisionado com :
+    - Atualização do host "Zabbix server" para usar o nome zabbix-agent com DNS
+    - Atualização do Tipo de Mídia EMail para usar o MailHog
+    - Configurada a Mídia E-Mail para o usuário "Admin" usando MailHog
+    - Habilitada a ação "Report problems to Zabbix administrators"
 
 ## Como usar:
 
@@ -59,7 +65,6 @@
   ```sh
   $ docker-compose up -d
   ```
-- O Grafana já vem pré-configurado com o plugin e datasources para o Zabbix e para o banco postgres do Zabbix
 - **Observe** que a estrutura em docker **não usa 'localhost'** então não use esse hostname 'localhost' para configurar o PGAdmin para PostgreSQL e no mailhog. Para configurar os mesmos, atentar-se para a opção de hostname para cada contêiner dentro da configuração do arquivo docker-compose.yml.
 
 # Sobre o Zabbix
@@ -77,8 +82,6 @@ Ferramenta Online para testes e desenvolvimento usando pesquisas dentro da API W
 ![Grafana](https://raw.githubusercontent.com/grafana/grafana/master/docs/logo-horizontal.png)
 
 [Grafana](https://grafana.com) é uma ferramenta para relatórios e análise de dados - Versão em container já configurada para uso com o plugin do zabbix
-
-- O Grafana já vem pré-configurado com o plugin e datasources para o Zabbix e para o banco postgres do Zabbix
 
 # Sobre o Mailhog
 
