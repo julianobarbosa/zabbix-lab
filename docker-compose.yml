@@ -1,5 +1,11 @@
 version: "3"
 
+# docker network create zabbix-lab-network
+networks:
+  zabbix-lab-network:
+    external:
+        name: zabbix-lab-network
+
 volumes:
   db_data:
     driver: local
@@ -21,6 +27,8 @@ services:
       - POSTGRES_PASSWORD=zabbix
     volumes:
       - ./zabbix/usr/lib/zabbix/externalscripts:/usr/lib/zabbix/externalscripts:ro
+    networks:
+      - zabbix-lab-network
     depends_on:
       - postgresql
 
@@ -40,6 +48,11 @@ services:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
       - ./zabbix/etc/ssl/apache2:/etc/ssl/apache2:ro
+    ports:
+      - 8080:8080
+      - 8443:443
+    networks:
+      - zabbix-lab-network
     depends_on:
       - postgresql
       - zabbix-server
@@ -54,6 +67,8 @@ services:
       - POSTGRES_PASSWORD=zabbix
     volumes:
       - db_data:/var/lib/postgresql/data
+    networks:
+      - zabbix-lab-network
     command: ["postgres", "-c", "max_connections=1000"]
 
   zabbix-agent:
@@ -70,6 +85,8 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - ./zabbix/etc/zabbix/zabbix_agentd.d:/etc/zabbix/zabbix_agentd.d:ro
       - ./zabbix/frontend_hacks:/usr/share/zabbix/local/
+    networks:
+      - zabbix-lab-network
     depends_on:
       - zabbix-server
 
@@ -94,6 +111,10 @@ services:
     volumes:
       - grafana_data:/var/lib/grafana
       - ./grafana/provisioning:/etc/grafana/provisioning
+    ports:
+      - 3000:3000
+    networks:
+      - zabbix-lab-network
     depends_on:
       - zabbix-frontend
 
@@ -102,6 +123,10 @@ services:
     restart: unless-stopped
     build:
       context: ./zapix
+    ports:
+      - 8081:80
+    networks:
+      - zabbix-lab-network
     depends_on:
       - zabbix-frontend
 
@@ -111,6 +136,8 @@ services:
     image: thajeztah/pgadmin4
     volumes:
       - pgadmin_data:/pgadmin
+    networks:
+      - zabbix-lab-network
     depends_on:
       - postgresql
 
@@ -118,6 +145,8 @@ services:
     hostname: mailhog
     restart: unless-stopped
     image: mailhog/mailhog:v1.0.0
+    networks:
+      - zabbix-lab-network
     environment:
       - MH_HOSTNAME=mailhog
 
@@ -127,6 +156,8 @@ services:
     command: ["python", "/tmp/provisioning.py"]
     volumes:
       - ./zabbix/provisioning.py:/tmp/provisioning.py:ro
+    networks:
+      - zabbix-lab-network
     depends_on:
       - zabbix-frontend
 
@@ -134,6 +165,8 @@ services:
   #   image: jgraph/drawio
   #   hostname: drawio
   #   restart: unless-stopped
+  #   networks:
+  #     - zabbix-lab-network
   #   environment:
   #     PUBLIC_DNS: drawio
   #     ORGANISATION_UNIT: zabbixlab
@@ -146,6 +179,8 @@ services:
   #   image: gitlab/gitlab-ce:latest
   #   restart: unless-stopped
   #   hostname: gitlab
+  #   networks:
+  #     - zabbix-lab-network
   #   environment:
   #     GITLAB_OMNIBUS_CONFIG: |
   #       external_url 'http://gitlab.example.com:8929'
