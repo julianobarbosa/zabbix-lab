@@ -76,6 +76,9 @@ target/
 # celery beat schedule file
 celerybeat-schedule
 
+# mysql-env
+mysql.env
+
 # dotenv
 .env
 
