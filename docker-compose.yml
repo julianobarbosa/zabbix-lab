@@ -13,6 +13,8 @@ volumes:
     driver: local
   pgadmin_data:
     driver: local
+  metabase_data:
+    driver: local
 
 services:
   zabbix-server:
@@ -198,6 +200,9 @@ services:
       - MB_DB_PASS=zabbix
       - MB_DB_HOST=postgres
     restart: always
+    volumes:
+      - metabase_data:/metabase-data
+
     
   mysql:
     image: mysql:8.0
