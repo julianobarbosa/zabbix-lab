@@ -1,8 +1,6 @@
 #On choisit une debian
 FROM debian:10.4
 
-MAINTAINER DiouxX "julianomb@gmail.com"
-
 #Ne pas poser de question à l'installation
 ENV DEBIAN_FRONTEND noninteractive
 
