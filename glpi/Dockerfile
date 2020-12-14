@@ -26,6 +26,8 @@ php7.3-intl \
 php7.3-zip \
 php7.3-bz2 \
 cron \
+composer \
+git \
 wget \
 ca-certificates \
 jq \
