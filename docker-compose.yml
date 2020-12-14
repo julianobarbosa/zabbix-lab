@@ -155,6 +155,18 @@ services:
     depends_on:
       - zabbix-frontend
 
+  adminer:
+    hostname: adminer
+    restart: unless-stopped
+    build:
+      context: ./adminer
+    ports:
+      - 8083:80
+    networks:
+      - zabbix-lab-network
+    depends_on:
+      - mysql
+
   pgadmin:
     hostname: pgadmin
     restart: unless-stopped
