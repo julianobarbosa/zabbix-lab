@@ -1,5 +1,6 @@
 import json
 import logging
+import random
 import sys
 from importlib import import_module
 from time import sleep
@@ -60,6 +61,20 @@ def do_create_entity():
         print(response)
 
 
+def do_create_computer():
+    payload = {}
+    for _ in range(100):
+        payload = {
+            "input": {
+                "name": f"{faker.name()}",
+                "entities_id": f"{random.randint(1,100)}"
+            }
+        }
+
+        response = requests.post(URL_COMPUTER, headers=headers, json=payload)
+        print(response)
+
+
 # Wait for zabbix-frontend container to be available
 frontend_available = False
 while frontend_available is False:
@@ -88,37 +103,10 @@ headers = {
 
 faker = Faker('pt_BR')
 logger.info('Create Entity')
-do_create_entity()
+# do_create_entity()
 
-exit(0)
-logger.info('Create Entity')
+logger.info('Create Computer')
 do_create_computer()
+exit(0)
 
 
-def do_create_computer():
-    faker = Faker(computer)
-    for _ in range(100):
-        # import ipdb; ipdb.set_trace(context=20)
-        entity_input = {
-            "input": {
-                "name": f"{faker.name()}",
-                "address": f"{faker.address()}",
-                "comments": f"{faker.text()}",
-                "phonenumber": f"{faker.phone_number()}",
-                "fax": f"{faker.phone_number()}",
-                "url": f"{faker.url()}",
-                "email": f"{faker.email()}",
-                "postcode": f"{faker.postcode()}",
-                "state": f"{faker.state_abbr()}",
-                "town": f"{faker.city()}",
-                "latitude": f"{faker.latitude()}",
-                "longitude": f"{faker.longitude()}",
-                "altitude": f"{faker.altitude()}"
-            }
-        }
-        post_entity = requests.post(
-            url=URL_ENTITY,
-            headers=headers,
-            data=json.dumps(entity_input)
-        )
-        print(post_entity)
