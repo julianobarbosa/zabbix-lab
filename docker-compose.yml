@@ -1,10 +1,11 @@
+---
 version: "3"
 
 # docker network create zabbix-lab-network
 networks:
   zabbix-lab-network:
     external:
-        name: zabbix-lab-network
+      name: zabbix-lab-network
 
 volumes:
   db_data:
@@ -60,7 +61,7 @@ services:
       - postgresql
       - zabbix-server
 
-        
+
   postgresql:
     hostname: postgresql
     restart: unless-stopped
@@ -114,7 +115,7 @@ services:
       - zabbix-lab-network
     depends_on:
       - zabbix-server
-  
+
   grafana:
     hostname: grafana
     restart: unless-stopped
@@ -158,8 +159,9 @@ services:
   adminer:
     hostname: adminer
     restart: unless-stopped
-    build:
-      context: ./adminer
+    image: adminer
+    # build:
+    #   context: ./adminer
     ports:
       - 8083:80
     networks:
@@ -215,7 +217,7 @@ services:
     volumes:
       - metabase_data:/metabase-data
 
-    
+
   mysql:
     image: mysql:8.0
     container_name: mysql
@@ -225,12 +227,12 @@ services:
     env_file:
       - ./mysql.env
     restart: always
-    
+
   glpi:
     image: glpi
     build:
       context: ./glpi
-    container_name : glpi
+    container_name: glpi
     hostname: glpi
     ports:
       - "8082:80"
